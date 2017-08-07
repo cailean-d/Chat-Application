@@ -4,8 +4,8 @@ Chat Application based on Electron (NodeJS, Chromium, V8)
 
 **The application contains these common files:**
 
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `config.json` - Points to the app's config file.
+- `package.json` - Contains the app's main file and lists its details and dependencies.
+- `config.json` - Contains the app's config file.
 - `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
 - `index.html` - A web page to render. This is the app's **renderer process**.
 
