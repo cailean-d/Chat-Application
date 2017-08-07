@@ -2,7 +2,7 @@
 
 Chat Application based on Electron (NodeJS, Chromium, V8)
 
-**This application contains these common files:**
+**The application contains these common files:**
 
 - `package.json` - Points to the app's main file and lists its details and dependencies.
 - `config.json` - Points to the app's config file.
