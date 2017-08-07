@@ -1,0 +1,203 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+      body { 
+        font: 13px Helvetica, Arial; background: #FEFEFE;
+      }
+  
+
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      border-radius: 1px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar{
+      width: 7px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      border-radius: 1px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background: #B4B4B4;
+      transition: background 0.5s;
+      opacity: 0.5;
+    }
+    ::-webkit-scrollbar-thumb:hover{
+      background: #757474;
+      opacity: 1;
+    }  
+      #messages::-webkit-scrollbar-track{
+      display: none;
+    }
+
+    #messages::-webkit-scrollbar{
+      width: 5px;
+      background-image: linear-gradient(to bottom,#e8e8e8 0,#f5f5f5 100%);
+    }
+
+    #messages::-webkit-scrollbar-thumb{
+      border-radius: 1px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background: #B4B4B4;
+      transition: background 0.5s;
+      display: none;
+    }
+    #messages::-webkit-scrollbar-thumb:hover{
+      background: #757474;
+      display: block;
+    }
+      form { 
+        /* background: #000;  */
+        /* padding: 3px; */
+        bottom: 0; 
+        width: 100%; 
+        display: flex;
+      }
+      form input { 
+        border: 1px solid #000; 
+        padding: 10px; 
+        width: 100%; 
+        margin-right: .5%; 
+      }
+      form button { 
+        /* width: 9%;  */
+        background: #CECEFD;
+        cursor: pointer;
+        border: 1px solid #000; 
+        /* border: none;  */
+        padding: 10px; 
+      }
+      #messages { 
+        /* background: #EFF5F4; */
+        list-style: none;
+        margin: 0; 
+        margin-bottom: 5px;
+        padding: 5px; 
+        overflow-y: scroll; 
+        height: 400px;
+        overflow-x: hidden; 
+        /* resize: both; */
+      }
+      .chat{
+        width: 100%;
+        /* height: 300px; */
+        margin: 3px;
+      }
+      .name{
+        padding: 10px;
+        color: #fff;
+        background: #333;
+        border-radius: 4px;
+      }
+      .message, .myMessage, .connectedUser, .disconnectedUser{
+          margin: 5px;
+          background: #EADAF8;
+          padding: 5px;
+          display: flex;
+          justify-content: space-between;
+      }
+      .message .msg, .myMessage .msg{
+        padding: 5px;
+        word-wrap: break-word;
+        margin-right: 5px;
+        width: 73%;
+      }
+      .message .time, .myMessage .time{
+        /* display: inline; */
+        padding: 5px;
+        /* width: 30%; */
+      }
+      .myMessage{
+          background: #FFFFFF;
+      }
+      .myMessage .s, .message .s{
+         color: #3100AD;
+      }
+      .type{
+        min-height: 25px;
+        /* background: #EFF5F4; */
+        padding: 5px;
+        /* border: 1px solid #000; */
+      }
+      .type ul{
+        list-style: none;
+      }
+      .row{
+        display: flex;
+      }
+      .online{
+        min-width: 150px;
+        display: inline-block;
+        /* background: #EFF5F4; */
+        padding: 10px;
+        padding-left: 4px;
+        padding-right: 4px;
+        margin:  3px;
+        margin-left: 0;
+      }
+      .online ul{
+        list-style: none;
+      }
+      .online ul li{padding: 7px; background: #fff; margin-bottom: 3px}
+      .online ul li:hover{
+        cursor: pointer;
+        background: #252525;
+        color: #fff;
+      }
+      .online h4{
+        margin-bottom: 20px;
+      }
+      .connectedUser{
+        background: #81F281;
+        color: #fff;
+      }
+      .disconnectedUser{
+        background: #F55656;
+        color: #fff;
+
+      }
+      @media screen and (max-width: 500px){
+        .chat{
+          width: 90%;
+        }
+        .row{
+          display: block;
+        }
+      }
+
+
+      .overlay{
+        user-select: none;
+        cursor: default;
+        display: flex;
+        position: fixed;
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+      }
+      .overlay .loading{ font-size: 50px;}
+      .overlay .dots {position: absolute; left: 100%; font-size: 50px}
+      .overlay .loadBlock{position: relative; display: flex;}
+      .offline{
+        position: absolute;
+        text-align: center;
+        background: #EF5656; color: #fff;
+        padding: 20px;
+        font-size: 30px; 
+        display: none; 
+        z-index: 7; 
+        width: 100%; 
+        user-select: none; 
+        cursor: default;
+      }
+
+      .container{
+        padding: 0;
+      }
+     .online h4{
+      user-select:  none;
+      cursor: default;
+     }

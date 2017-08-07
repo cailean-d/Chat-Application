@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <title>Babylon.js sample code</title>
+        <link rel="icon" type="image/jpg"  href="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/gamecontroller-512.png">
+        <!-- Babylon.js -->
+        <script src="https://www.babylonjs.com/hand.minified-1.2.js"></script>
+        <script src="https://preview.babylonjs.com/cannon.js"></script>
+        <script src="https://preview.babylonjs.com/oimo.js"></script>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <style>
+
+          *{user-select: none;}
+          p, ul{cursor: default;}
+
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+            .ui{
+              display: flex;
+              position: fixed;
+              width: 20%;
+              height: 100%;
+            }
+            .info ul{list-style-type: none; list-style: none; padding-left: 10px; }
+            .info{
+              cursor: default;
+              user-select: none;
+              font-size: 15px;
+              font-weight: bold;
+              color: white;
+            }
+            .FPS{font-size: 30px;}
+        </style>
+    </head>
+<body>
+    <div class="ui">
+      <div class="info">
+      <ul>
+        <li><button class="link">New window</button></li>
+        <li><button class="google">Google</button></li>
+        <li class="FPS"></li>
+        <li>-----------</li>
+        <li class="cameraR"></li>
+        <li class="cameraBeta"></li>
+        <li class="cameraAlpha"></li>
+        <li>-----------</li>
+        <li class="playerX"></li>
+        <li class="playerY"></li>
+        <li class="playerZ"></li>
+      </ul>
+      </div>
+    </div>
+    <div id="canvasZone">
+        <canvas id="renderCanvas"></canvas>
+    </div>
+    <script>
+        //player properties
+        var speed = 10;
+
+        var UIFPS = document.querySelector('.FPS');
+
+        var UICameraRadius = document.querySelector(".cameraR");
+        var UICameraBeta = document.querySelector(".cameraBeta");
+        var UICameraAlpha = document.querySelector(".cameraAlpha");
+
+        var UIPlayerX = document.querySelector(".playerX");
+        var UIPlayerY = document.querySelector(".playerY");
+        var UIPlayerZ = document.querySelector(".playerZ");
+
+        //===============================================================
+
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+
+        var createScene = function () {
+        
+            // This creates a basic Babylon Scene object (non-mesh)
+            var scene = new BABYLON.Scene(engine);
+        
+            // This creates and positions a free camera (non-mesh)
+            // var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+
+            // // This targets the camera to scene origin
+            // camera.setTarget(BABYLON.Vector3.Zero());
+        
+            // // This attaches the camera to the canvas
+            // camera.attachControl(canvas, true);
+        
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+        
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+        
+            // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+            var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 6, scene);
+        
+            // Move the sphere upward 1/2 its height
+            sphere.position.y = 3;
+
+            var camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 100, sphere, scene);
+            camera.attachControl(canvas, true);
+            camera.inputs.remove(camera.inputs.attached.keyboard);
+        
+            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+            var ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 2, scene);
+
+            var materialSphere1 = new BABYLON.StandardMaterial("texture1", scene);
+            var material1 = new BABYLON.StandardMaterial("texture1", scene);
+ 
+            material1.diffuseColor = new BABYLON.Color3(0,1,0);
+            materialSphere1.diffuseColor = new BABYLON.Color3(1.0, 0.2, 1.0);
+
+            sphere.material = materialSphere1;
+            ground.material = material1;
+
+            function playerMoving(player = null, axis = "x", speed = 1){
+              var direction;
+              var action;
+              switch (axis) {
+                case "x" : direction = player.position.x; action = 'position.x';break;
+                case "y" : direction = player.position.y; action = 'position.y';break;
+                case "z" : direction = player.position.z; action = 'position.z';break;
+              }
+              var moving = new BABYLON.Animation("moving", action, 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+              var keys = [];
+              keys.push({frame: 0,value: direction});
+              keys.push({frame: 30,value: direction + speed});
+              moving.setKeys(keys);
+              player.animations = [];
+        player.animations.push(moving);
+        scene.beginAnimation(player, 0, 30, true);
+      }
+
+            canvas.onkeydown = function (e){
+             if(e.keyCode == 32){}  // space  
+               if(e.keyCode == 38){scene.stopAnimation(sphere);playerMoving(sphere, "z", speed);}      // up
+             if(e.keyCode == 40){scene.stopAnimation(sphere);playerMoving(sphere, "z", speed*-1);}   // down
+             if(e.keyCode == 39){scene.stopAnimation(sphere);playerMoving(sphere, "x", speed);}      // right
+             if(e.keyCode == 37){scene.stopAnimation(sphere);playerMoving(sphere, "x", speed*-1);}   // left
+             }
+
+           var showUI = setInterval(function(){
+              UICameraRadius.innerHTML = "Camera radius = " + camera.radius.toFixed(2);
+              UICameraAlpha.innerHTML = "Camera alpha = " + camera.alpha.toFixed(2);
+              UICameraBeta.innerHTML = "Camera beta = " + camera.beta.toFixed(2);
+              UIPlayerX.innerHTML = "Player X = " + sphere.position.x.toFixed(2);
+              UIPlayerY.innerHTML = "Player Y = " + sphere.position.y.toFixed(2);
+              UIPlayerZ.innerHTML = "Player Z = " + sphere.position.z.toFixed(2);
+              UIFPS.innerHTML = engine.getFps().toFixed() + " fps";
+            }, 200);
+
+            return scene;
+        
+        };
+        
+        var scene = createScene();
+
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+
+    </script>
+    <script>
+      var btn = document.querySelector('.link');
+      var btn2 = document.querySelector('.google');
+      btn.onclick = function(){
+        // const electron = require('electron');
+        // const BrowserWindow = electron.BrowserWindow;
+        // newWindow = new BrowserWindow({width: 400, height: 300, resizable: false});
+        const path = require('path')
+        const url = require('url')
+
+        const remote = require('electron').remote;
+        const BrowserWindow = remote.BrowserWindow;
+        var win = new BrowserWindow({ width: 600, height: 400, resizable: false, show: false });
+        win.loadURL(url.format({
+        pathname: path.join(__dirname, 'info.html'),
+        protocol: 'file:',
+        slashes: true
+      }));
+
+        win.once('ready-to-show', () => {
+           win.show()
+        });
+        
+        win.on('closed', function () { win = null });
+      }
+      btn2.onclick = function(){
+         var shell = require('electron').shell;
+         event.preventDefault();
+         shell.openExternal('https://google.ru');
+      }
+
+    </script>
+</body>
+</html>

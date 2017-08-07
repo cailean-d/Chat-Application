@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/settings-style.css">
+</head>
+<body>
+<ul class="list-group set">
+	<li class="list-group-item ip">
+		IP Сервера : <span><input type="text" class="form-control"></span>
+	</li>
+	<li class="list-group-item ip">
+		Подтверждение выхода : 
+		<span>
+			<input type="checkbox" class="checkbox" id="checkbox1" />
+			<label for="checkbox1"></label>
+		</span>
+	</li>
+	<li class="list-group-item ip">
+		Сворачивать в трей : 
+		<span>
+			<input type="checkbox" class="checkbox" id="checkbox2" />
+			<label for="checkbox2"></label>
+		</span>
+	</li>
+	<li class="list-group-item ip">
+		Только одно приложение : 
+		<span>
+			<input type="checkbox" class="checkbox" id="checkbox3" />
+			<label for="checkbox3"></label>
+		</span>
+	</li>
+	<li class="list-group-item ip">
+		Сообщения в трее : 
+		<span>
+			<input type="checkbox" class="checkbox" id="checkbox4" />
+			<label for="checkbox4"></label>
+		</span>
+	</li>
+	<li class="list-group-item ip">
+		Сигнал при получении сообщения : 
+		<span>
+			<input type="checkbox" class="checkbox" id="checkbox5" />
+			<label for="checkbox5"></label>
+		</span>
+	</li>
+</ul>
+<button class="btn btn-primary btn-block" id='save'>Сохранить</button>
+<script>window.$ = window.jQuery = require('./js/libs/jquery.js');</script>
+<script>
+	const jsonfile = require('jsonfile');
+	const SETTINGS = jsonfile.readFileSync('./config.json');
+
+    const {remote, ipcRenderer} = require('electron');
+    var currentWindow = remote.getCurrentWindow();
+
+   $('.ip input').val(SETTINGS.server.ip);
+
+   if(SETTINGS.confirmExit == 'true'){$('#checkbox1').prop('checked', true);} else{$('#checkbox1').prop('checked', false)}
+   if(SETTINGS.trayOnMinimize == 'true'){$('#checkbox2').prop('checked', true);}else{$('#checkbox2').prop('checked', false)}
+   if(SETTINGS.oneProcess == 'true'){$('#checkbox3').prop('checked', true);}else{$('#checkbox3').prop('checked', false)}
+   if(SETTINGS.trayMessage == 'true'){$('#checkbox4').prop('checked', true);}else{$('#checkbox4').prop('checked', false)}
+   if(SETTINGS.flashFrameOnMessage == 'true'){$('#checkbox5').prop('checked', true);}else{$('#checkbox5').prop('checked', false)}
+
+   $('#save').on('click', function(){   // json с новыми значениями
+
+      SETTINGS.server.ip = String($('.ip input').val());
+      SETTINGS.confirmExit = String($('#checkbox1').prop('checked'));
+      SETTINGS.trayOnMinimize = String($('#checkbox2').prop('checked'));
+      SETTINGS.oneProcess = String($('#checkbox3').prop('checked'));
+      SETTINGS.trayMessage = String($('#checkbox4').prop('checked'));
+      SETTINGS.flashFrameOnMessage = String($('#checkbox5').prop('checked'));
+
+   	  jsonfile.writeFileSync('./config.json', SETTINGS, {spaces: 2});
+
+      let dialog = remote.dialog;
+      let app = remote.app;
+      dialog.showMessageBox({
+         type: 'question',
+         buttons: ['Yes', 'No'],
+         title: 'Настройки успешно сохранены!',
+         message: 'Для того, чтобы новые настройки вступили в силу, нужно перезапустить приложение. Сделать это сейчас?'
+       }, function (response) {
+         if (response === 0) { 
+              app.relaunch();
+              app.exit();
+         } else {
+   		      currentWindow.close();
+         }
+       });
+   });
+
+
+</script>
+</body>
+</html>

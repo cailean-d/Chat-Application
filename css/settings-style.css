@@ -1,0 +1,169 @@
+      *{user-select: none; cursor: default}
+      body{margin: 0;padding: 0;}
+      .wrapper{padding: 15px;}
+    img{
+      max-width: 100%;
+      height: auto;
+    }
+    ::-webkit-scrollbar-track
+    {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      border-radius: 1px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar
+    {
+      width: 7px;
+      background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb
+    {
+      border-radius: 1px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background: #B4B4B4;
+      transition: background 0.5s;
+      opacity: 0.5;
+    }
+    ::-webkit-scrollbar-thumb:hover{
+      background: #757474;
+      opacity: 1;
+    }
+    ul{list-style-type: none;}
+
+
+.radio {
+  vertical-align: top;
+  width: 17px;
+  height: 17px;
+  margin: 0 3px 0 0;
+}
+.radio + label {
+  cursor: pointer;
+}
+.radio:not(checked) {
+  position: absolute;
+  opacity: 0;
+}
+.radio:not(checked) + label {
+  position: relative;
+  padding: 0 0 0 35px;
+}
+.radio:not(checked) + label:before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #CDD1DA;
+  border-radius: 50%;
+  background: #FFF;
+}
+.radio:not(checked) + label:after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  /* background: #9FD468; */
+  background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.5);
+  opacity: 0;
+  transition: all .2s;
+}
+.radio:checked + label:after {
+  opacity: 1;
+}
+/* .radio:focus + label:before {
+  box-shadow: 0 0 7px 0px rgba(66,66,66,.5);
+}
+ */
+
+/* Cначала обозначаем стили для IE8 и более старых версий
+т.е. здесь мы немного облагораживаем стандартный чекбокс. */
+.checkbox {
+  vertical-align: top;
+  margin: 0 3px 0 0;
+  width: 17px;
+  height: 17px;
+}
+/* Это для всех браузеров, кроме совсем старых, которые не поддерживают
+селекторы с плюсом. Показываем, что label кликабелен. */
+.checkbox + label {
+  cursor: pointer;
+}
+
+/* Далее идет оформление чекбокса в современных браузерах, а также IE9 и выше.
+Благодаря тому, что старые браузеры не поддерживают селекторы :not и :checked,
+в них все нижеследующие стили не сработают. */
+
+/* Прячем оригинальный чекбокс. */
+.checkbox:not(checked) {
+  position: absolute;
+  opacity: 0;
+}
+.checkbox:not(checked) + label {
+  position: relative; /* будем позиционировать псевдочекбокс относительно label */
+  padding: 0 0 0 60px; /* оставляем слева от label место под псевдочекбокс */
+  height: 14px;
+  margin-left: 10px;
+}
+/* Оформление первой части чекбокса в выключенном состоянии (фон). */
+.checkbox:not(checked) + label:before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 50px;
+  height: 26px;
+  border-radius: 13px;
+  background: #CDD1DA;
+  box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
+}
+/* Оформление второй части чекбокса в выключенном состоянии (переключатель). */
+.checkbox:not(checked) + label:after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 10px;
+  background: #FFF;
+  box-shadow: 0 2px 5px rgba(0,0,0,.3);
+  transition: all .2s; /* анимация, чтобы чекбокс переключался плавно */
+}
+/* Меняем фон чекбокса, когда он включен. */
+.checkbox:checked + label:before {
+  /* background: #9FD468; */
+  background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+}
+/* Сдвигаем переключатель чекбокса, когда он включен. */
+.checkbox:checked + label:after {
+  left: 26px;
+}
+/* Показываем получение фокуса. */
+/* .checkbox:focus + label:before {
+  box-shadow: 0 0 7px 0px rgba(66,66,66,.5);
+}
+ */
+label{
+  margin-bottom: 0;
+  z-index: 5;
+}
+
+
+.ip input{
+  display: inline-block;
+  width: auto;
+}
+
+
+.set li{
+  display: flex;
+  justify-content: space-between;
+}

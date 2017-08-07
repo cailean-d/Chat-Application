@@ -1,0 +1,11 @@
+{
+  "server": {
+    "ip": "192.168.0.54"
+  },
+  "confirmExit": "true",
+  "trayOnMinimize": "true",
+  "oneProcess": "true",
+  "trayMessage": "true",
+  "flashFrameOnMessage": "true",
+  "showMenu": "true"
+}

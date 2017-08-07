@@ -1,0 +1,65 @@
+{
+  "name": "myApplication",
+  "version": "1.0.0",
+  "description": "Electronapplication",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win"
+  },
+  "repository": "https://github.com/cailean-d",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "Lykov Denis",
+  "license": "",
+  "devDependencies": {
+    "electron": "~1.6.2",
+    "electron-builder": "^19.18.1",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-run": "^1.7.1"
+  },
+  "build": {
+    "appId": "comelectronmyapp",
+    "extraFiles": [
+      "config.json"
+    ],
+    "compression": "maximum",
+    "asar": "true",
+    "files": [
+      "!gulpfile.js",
+      "!index_.html",
+      "!build-installer-win.bat",
+      "!build-package-win.bat",
+      "!README.md",
+      "!LICENSE.md"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "img/chat.ico"
+    },
+    "directories": {
+      "output": "_Install"
+    },
+    "nsis": {
+      "oneClick": "false",
+      "artifactName": "${name}.${ext}",
+      "installerIcon": "img/3.ico",
+      "perMachine": "true",
+      "allowToChangeInstallationDirectory": "true",
+      "installerHeader": "img/install.jpg",
+      "installerSidebar": "img/install.jpg",
+      "menuCategory": "true"
+    }
+  },
+  "dependencies": {
+    "jsonfile": "^3.0.1",
+    "my-local-ip": "^1.0.0"
+  }
+}
