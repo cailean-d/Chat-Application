@@ -11,7 +11,7 @@ Chat Application based on Electron (NodeJS, Chromium, V8)
 
 You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/tutorial/quick-start).
 
-## To Use
+## How To Use
 
 To clone and run this repository you'll need [Git](https://git-scm.com), [Yarn](https://yarnpkg.com/lang/en/) (to build application) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
@@ -26,12 +26,10 @@ npm install
 npm start
 ```
 
-## Resources for Learning Electron
+## How to build
 
-- [electron.atom.io/docs](http://electron.atom.io/docs) - all of Electron's documentation
-- [electron.atom.io/community/#boilerplates](http://electron.atom.io/community/#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
-
+**For Windows users jus follow next steps:**
+```bash
+- run `build-package-win.bat` to build win package without installer
+- run `build-installer-win.bat` to build win package with installer
+```
