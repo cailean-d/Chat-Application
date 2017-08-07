@@ -29,7 +29,6 @@ npm start
 ## How to build
 
 **For Windows users jus follow next steps:**
-```bash
+
 - run `build-package-win.bat` to build win package without installer
 - run `build-installer-win.bat` to build win package with installer
-```
