@@ -18,7 +18,9 @@
 			/* padding: 5px 10px; */
 		}
 		.list a{width: 100%;}
-		/* .list-item{display: none;} */
+		.iptext{display: flex; align-items: center;}
+		.list-group-item{line-height: 30px;}
+		body{padding: 5px;}
 	/* 	.ip input:focus .list{display: block;} */
 
 	</style>
@@ -32,7 +34,8 @@
    </datalist></p> -->
 <ul class="list-group set">
 	<li class="list-group-item ip">
-		IP Сервера : <span>
+		<span class="iptext">IP Сервера : </span>
+		<span>
 		<input id='ip' type="text" class="form-control">
 			<ul class="list dropdown-menu">
 				<li><a href="#" class="list-item">localhost</a></li>

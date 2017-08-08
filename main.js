@@ -173,9 +173,9 @@ function createWindow () {
               label: 'Settings',
               click () {
                       let settingsWin = new BrowserWindow({ 
-                          width: 600, 
-                          height: 400, 
-                          resizable: true, 
+                          width: 700, 
+                          height: 425, 
+                          resizable: false, 
                           show: false,
                           parent: mainWindow 
                       });
