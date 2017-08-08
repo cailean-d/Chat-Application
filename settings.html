@@ -2,15 +2,43 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Settings</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/settings-style.css">
+	<style>
+		.ip span{position: relative;}
+		.list{
+			position: absolute;
+			width: 100%;
+			display: none;
+			z-index: 10; 
+			/* background:#efefef;  */
+			/* box-shadow: 0 5px 0 #000; */
+			/* padding: 5px 10px; */
+		}
+		.list a{width: 100%;}
+		/* .list-item{display: none;} */
+	/* 	.ip input:focus .list{display: block;} */
+
+	</style>
 </head>
 <body>
+<!--   <p><input list="character">
+   <datalist id="character">
+    <option value="Чебурашка"></option>
+    <option value="Крокодил Гена"></option>
+    <option value="Шапокляк"></option>
+   </datalist></p> -->
 <ul class="list-group set">
 	<li class="list-group-item ip">
-		IP Сервера : <span><input type="text" class="form-control"></span>
+		IP Сервера : <span>
+		<input id='ip' type="text" class="form-control">
+			<ul class="list dropdown-menu">
+				<li><a href="#" class="list-item">localhost</a></li>
+				<li><a href="#" class='list-item' id='local'>local ip</a></li>
+			</ul>
+		</span>
 	</li>
 	<li class="list-group-item ip">
 		Подтверждение выхода : 
@@ -93,6 +121,63 @@
        });
    });
 
+
+</script>
+<script>
+//---------------------------------------------
+//	Dropdown IP list
+//---------------------------------------------
+    const ip = require('my-local-ip');   // require NodeJS module
+    let input = $('#ip');
+	let list = $('.list');
+
+    $('#local').text(ip());   // add local ip to list
+    $('.list-item').hide();   // hide all dropdown options while not matched
+
+	$('.list a').on('click', function(e){    // change input from dropdown list
+		e.preventDefault(); 
+ 		$('.ip input').val(this.innerHTML);
+ 		$('.list').hide();
+	});
+
+	$(document).on('mousedown',function(event){    // hide list
+	  if (event.target.className == 'list-item' || event.target.id == 'ip') {} else{ list.hide();}
+	});
+
+	function onChange(input, handler){   // custom onchange function
+		var oldVal;
+	    input.on('change textInput input keydown keypress', function () {
+	        var val = this.value;
+	        if (val !== oldVal) {
+	            oldVal = val;
+	            (handler());
+	        }
+	    });
+	}
+
+	onChange(input, function(){   // display only matched list items
+		let str = input.val();
+		let ips  = $('.list-item').text();
+		let ipsl  = document.getElementsByClassName('list-item');
+
+		if(str.length > 0) {
+
+            let i = 0;
+            let show = false;
+
+			while(i < ipsl.length){
+				let item = ipsl[i].innerHTML;
+				if(item.indexOf(str) !== -1){
+					show = true;
+					ipsl[i].style.display = 'block';
+				}
+				i++;
+			}
+
+			if(show == true){ list.show();} else {list.hide(); $('.list-item').hide(); }
+
+		} else { list.hide(); $('.list-item').hide(); }
+	});
 
 </script>
 </body>
